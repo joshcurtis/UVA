@@ -33,4 +33,5 @@ int main()
 	}
 	cout << i << ' ' <<j << ' ' << maxLength << endl;
     }
+    return 0;
 }

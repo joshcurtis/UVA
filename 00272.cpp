@@ -32,5 +32,6 @@ int main()
 	else
 	    cout << c;
     }
+    return 0;
 }
 
