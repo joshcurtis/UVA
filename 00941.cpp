@@ -4,22 +4,21 @@
 #include<iostream>
 #include<algorithm>
 #include<string>
-#include<map>
-#include<set>
 using namespace std;
 
 typedef  long long ll;
 
 int main()
 {
-    ll cases, permutation, factorials[21],  factorial = 1;
+    ll cases, permutation, factorials[21],  f = 1;
     string s;
-    factorials[0] = 1;
+
     //Calculate all factorials through 20
-    for(int n = 1; n <= 20; n++)
+    factorials[0] = 1;
+    for(int i = 1; i <= 20; i++)
     {
-	factorial *= n;
-	factorials[n] = factorial; 
+	f *= i;
+	factorials[i] = f; 
     }
 
     cin >> cases;
@@ -27,27 +26,17 @@ int main()
     {
 	cin >> s >> permutation;
 	sort(s.begin(),s.end());
-	map<int,char> values;
-	set<int> available;
-	for(int i = 0; i < s.size(); i++)
+	while(s.size())
 	{
-	    values[i]=s[i];
-	    available.insert(i);
-	}
-	ll size, i;
-	while(available.size())
-	{
-	    size = available.size()-1;
-	    i = 0;
-	    //Calculate which character to output next
-	    while(permutation - (i+1) * factorials[size] >= 0)
+	    int i = 0;
+	    //Subtract (size-1)! until it is less than the permutation we want
+	    while(permutation >= factorials[s.size()-1])
+	    {
+		permutation -= factorials[s.size()-1];
 		i++;
-	    set<int>::iterator a = available.begin();
-	    for(int j = 0; j < i; j++, a++);
-	    //Output and delete character
-	    cout << values[*a];
-	    available.erase(a);
-	    permutation = permutation - i*factorials[size];
+	    }
+	    cout << s[i];
+	    s.erase(s.begin()+i);
 	}
 	cout << endl;
     }
