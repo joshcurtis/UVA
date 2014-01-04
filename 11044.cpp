@@ -15,4 +15,5 @@ int main()
 	//Divisions have to happen first so that the result truncates
 	cout << (height / 3) * (width / 3) << endl;
     }
+    return 0;
 }

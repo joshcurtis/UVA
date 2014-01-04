@@ -15,18 +15,19 @@ int main()
 	seconds = 10*decimalTime[4]+decimalTime[5];
 	fractions = 10*decimalTime[6]+decimalTime[7];
 
-	//Perform conversions;
+	//Convert time to hundreths of a second
 	minutes += 60 * hours;
 	seconds += 60 * minutes;
 	fractions += 100 * seconds;
+
+	//Convert to decadary time
 	fractions *= 125;
 	fractions /= 108;
+	//Convert to decadary hours, minutes, and seconds
 	hours = fractions / (100 * 100 * 100);
 	fractions -= hours*100*100*100;
-
 	minutes = fractions / (100 * 100);
 	fractions -= minutes * 100*100;
-
 	seconds = fractions / 100;
 	fractions -= seconds * 100;
 
