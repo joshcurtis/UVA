@@ -11,6 +11,7 @@ int main()
 	cin >> divX >> divY;
 	for(int i = 0; i < cases; i++)
 	{
+	    //Get coordinates
 	    cin >> x >> y;
 	    //Check for on a border
 	    if(x == divX || y == divY)
