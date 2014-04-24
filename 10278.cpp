@@ -42,7 +42,7 @@ int main()
     cin >> F >> I;
     vector<bool> stations(I, false);
     vector<vii> AL(I);
-    for(int i = 0, s; i < F; i++)
+    for(int i = 0,s; i < F; i++)
     {
       cin >> s;
       s--;
@@ -59,16 +59,7 @@ int main()
       AL[a].push_back(ii(w,b));
       AL[b].push_back(ii(w,a));
     }
-    /*
-    for(int i = 0; i < I; i++)
-    {
-      cout << i << '\t';
-      for(vii::iterator it = AL[i].begin(); it != AL[i].end(); it++)
-	cout << ' ' << it->second << ' ' << it->first;
-      cout << endl;
-      }*/
     int new_station=1, dist,  min_max = INF;
-
     for(int i = 0; i < I; i++)
     {
       if(!stations[i])
