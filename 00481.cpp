@@ -3,48 +3,52 @@
 #include<stack>
 using namespace std;
 
-void LIS(const vector<int> &seq, vector<int>& lis)
+#include <vector>
+using namespace std;
+ 
+void LIS(vector<int> &seq, vector<int> &lis)
 {
-    // seq contains the sequence
-    /* lis[i] contains the index of the last element of the 
-       longest increasing/decreasing subsequence of length i+1 */
     vector<int> prev(seq.size());
-    lis.reserve(seq.size());
-    int lo, high, mid;
-    if(seq.empty()) return;
-    for(int i = 1; i < seq.size(); i++)
+    int lo, hi, mid;
+ 
+    if (seq.empty()) return;
+ 
+    lis.push_back(0);
+ 
+    for(int i = 1; i < seq.size(); i++) 
     {
-	/* If the newest element is bigger/smaller than
-	   than the previous max/min add it to the LIS */
-	if(seq[lis.back()] < seq[i])
+	// Add the newest element if it is the largest of the LIS
+	if (seq[lis.back()] < seq[i])//Change the sign here for a >= subsequnce of a decreasing subsequence
 	{
 	    prev[i] = lis.back();
 	    lis.push_back(i);
+	    continue;
 	}
-	// Binary Search
+
 	lo = 0;
-	high = lis.size()-1;
-	while(lo < high)
+	hi = lis.size()-1;
+	// Perform a binary search to find which LIS it is the last element of
+	while(lo < hi)
 	{
-	    mid = (lo+high)/2;
-	    if(seq[lis[mid]] < seq[i])
-		mid = lo+1;
-	    else
-		high = mid;
+	    mid = (lo + hi) / 2;
+	    if (seq[lis[mid]] < seq[i]) //Change the sign here for a >= subsequnce of a decreasing subsequence
+
+		lo=mid+1; else hi=mid;
 	}
-	// SOMETHING
-	if(seq[i] < seq[lis[mid]])
+	// Check if the newest element is smaller
+	if (seq[i] < seq[lis[lo]])//Change the sign here for a >= subsequnce of a decreasing subsequence 
 	{
-	    if(lo > 0)
+	    if (lo > 0)
 		prev[i] = lis[lo-1];
 	    lis[lo] = i;
-	}
+	}	
     }
-
-    for (int i = lis.size(), j = lis.back(); i > 0; i--)
+ 
+    for (lo = lis.size(), hi = lis.back(); lo>0;)
     {
-	lis[i] = j;
-	j = prev[j];
+	lo--;
+	lis[lo] = hi;
+	hi = prev[hi];
     }
 }
 
@@ -55,7 +59,7 @@ int main()
     int n;
     while(cin >> n)
 	seq.push_back(n);
-    find_lis(seq,lis);
+    LIS(seq,lis);
     cout << lis.size() << endl << '-' << endl;
     for(int i = 0; i < lis.size(); i++)
     {
